@@ -1,0 +1,90 @@
+# ======================================================
+# Root-level ignores
+# ======================================================
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.iml
+
+# Node modules (if root installs happen)
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*
+.env.*.local
+
+
+# ======================================================
+# Frontend (React + TypeScript + Azure Static Web Apps)
+# ======================================================
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.cache/
+frontend/.pnp*
+frontend/.parcel-cache/
+
+# React environment files
+frontend/.env
+frontend/.env.*
+
+
+# ======================================================
+# Backend (Node.js + Express API + Azure App Service)
+# ======================================================
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/.cache/
+
+# Backend environment files
+backend/.env
+backend/.env.*
+backend/.env.*.local
+
+# PM2 / runtime files
+backend/pids/
+backend/*.pid
+backend/*.pid.lock
+
+# Coverage / testing
+coverage/
+frontend/coverage/
+backend/coverage/
+
+
+# ======================================================
+# Other common patterns
+# ======================================================
+
+# TypeScript
+*.tsbuildinfo
+
+# Database / local storage
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Certificates
+*.pem
+*.crt
+*.key
