@@ -32,6 +32,33 @@ jobs:
                const coredemo = require('@actions/core')
                return await coredemo.getIDToken()
            result-encoding: string
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      - name: Build React app
+        working-directory: ./frontend
+        env:
+          # Use GitHub Secret for REACT_APP_API_BASE_URL
+          # Configure this as a GitHub Secret in your repository settings:
+          # Repository → Settings → Secrets and variables → Actions → New repository secret
+          # Name: REACT_APP_API_BASE_URL
+          # Value: https://your-backend-api.azurewebsites.net
+          REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL }}
+        run: |
+          if [ -z "$REACT_APP_API_BASE_URL" ]; then
+            echo "Error: REACT_APP_API_BASE_URL is not set!"
+            echo "Please configure it as a GitHub Secret:"
+            echo "Repository → Settings → Secrets and variables → Actions → New repository secret"
+            exit 1
+          fi
+          echo "Building with REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL"
+          npm run build
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -45,9 +72,9 @@ jobs:
           output_location: "build" # Built app content directory - optional
           github_id_token: ${{ steps.idtoken.outputs.result }}
           ###### End of Repository/Build Configurations ######
-          # Note: Environment variables (like REACT_APP_API_BASE_URL) must be configured
-          # in Azure Portal under Configuration → Application Settings
-          # They will be available during the build process that Azure runs
+          # Note: The app is now built locally with REACT_APP_API_BASE_URL from GitHub Secrets
+          # Make sure to add REACT_APP_API_BASE_URL as a repository secret:
+          # Repository → Settings → Secrets and variables → Actions → New repository secret
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
