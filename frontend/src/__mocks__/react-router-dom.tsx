@@ -35,7 +35,10 @@ export const Routes = ({ children }: { children: React.ReactNode }) => {
   const routes = React.Children.toArray(children);
   
   for (const route of routes) {
-    if (React.isValidElement(route) && route.props.path) {
+    if (
+      React.isValidElement<{ path?: string }>(route) &&
+      route.props.path
+    ) {
       const path = route.props.path;
       
       // Simple path matching
