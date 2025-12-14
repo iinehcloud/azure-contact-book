@@ -22,9 +22,15 @@ const ContactList: React.FC = () => {
       setLoading(true);
       setError('');
       const data = await getAllContacts();
-      setContacts(data);
+      // Ensure data is an array to prevent .map() errors
+      if (Array.isArray(data)) {
+        setContacts(data);
+      } else {
+        throw new Error('Invalid response format: expected an array');
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to load contacts. Please try again.');
+      setContacts([]); // Ensure contacts is always an array
     } finally {
       setLoading(false);
     }
