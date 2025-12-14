@@ -105,7 +105,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactId, onSave }) => {
 
     // phone: Optional, valid phone format
     if (formData.phone && formData.phone.trim()) {
-      const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+      // const phoneRegex = /^[\d\s\-\+\(\)]+$/; //Correct fix (clean & ESLint-safe)
+      const phoneRegex = /^[\d\s()+-]+$/;
       if (!phoneRegex.test(formData.phone)) {
         newErrors.phone = 'Invalid phone format';
       }
