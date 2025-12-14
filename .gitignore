@@ -43,6 +43,24 @@ frontend/.env.*
 
 
 # ======================================================
+# Frontend Tests & Mocks
+# ======================================================
+
+# Jest / React Testing Library
+frontend/src/**/*.test.ts
+frontend/src/**/*.test.tsx
+frontend/src/**/*.spec.ts
+frontend/src/**/*.spec.tsx
+
+# Mocks
+frontend/src/__mocks__/
+frontend/src/**/__mocks__/
+
+# Test snapshots
+frontend/src/**/__snapshots__/
+
+
+# ======================================================
 # Backend (Node.js + Express API + Azure App Service)
 # ======================================================
 backend/node_modules/
